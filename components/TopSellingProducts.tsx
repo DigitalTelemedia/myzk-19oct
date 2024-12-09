@@ -18,8 +18,7 @@ const  TopSellingProducts =  ({ props }: any) => {
   const [products, setProducts] = useState([]);
   const fetchEvents =  () => {
     try {
-      console.log("Featureprod received from parent *******  ", props);
-  const url = `${ENDPOINT.BASE_URL}/api/products?filters[category][$equals]=${props.name}`
+  const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/products?filters[category][$equals]=${props.name}`
       // const url = `${ENDPOINT.BASE_URL}/api/products?filters[category][$equals]=tablets&sort=defaultSort&page=1`;
 
       // const url = `${ENDPOINT.BASE_URL}/api/products?filters[category][$equals]=${
@@ -42,11 +41,9 @@ const  TopSellingProducts =  ({ props }: any) => {
         return res.json();
       })
       .then((data) => {
-        console.log("CategoryMenu*** data=", data)
         setProducts(data);
       });
       // console.log("data,,,,,,", data);
-      console.log("url...", url);
     } catch (error) {
       console.error(error);
     }

@@ -12,13 +12,12 @@ const DashboardCategory = () => {
 
   // getting all categories to be displayed on the all categories page
   useEffect(() => {
-    fetch( ENDPOINT.BASE_URL+ "/api/categories")
+    fetch( process.env.NEXT_PUBLIC_BASE_URL + "/api/categories")
+    // fetch( ENDPOINT.BASE_URL+ "/api/categories")
       .then((res) => {
-        console.log("Category List" , res);
         return res.json();
       })
       .then((data) => {
-        console.log("Category List data" , data);
         setCategories(data);
       });
   }, []);

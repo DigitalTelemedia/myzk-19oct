@@ -22,12 +22,12 @@ const DashboardSupportTickets = () => {
 
   useEffect(() => {
     // Fetching all support tickets
-    fetch(ENDPOINT.BASE_URL + "/api/support-ticket")
+    fetch(process.env.NEXT_PUBLIC_BASE_URL + "/api/support-ticket")
+    // fetch(ENDPOINT.BASE_URL + "/api/support-ticket")
       .then((res) => {
         return res.json();
       })
       .then((data) => {
-        console.log("data recived from api ", data)
         setTickets(data);
       });
   }, []);
@@ -40,7 +40,8 @@ const DashboardSupportTickets = () => {
     };
 
     // Call the API to delete the ticket
-    fetch(`${ENDPOINT.BASE_URL}/api/support-ticket/${id}, requestOptions`)
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/support-ticket/${id}, requestOptions`)
+    // fetch(`${ENDPOINT.BASE_URL}/api/support-ticket/${id}, requestOptions`)
       .then((response) => {
         if (response.status === 200) {
           // Filter out the deleted ticket from the state

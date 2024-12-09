@@ -110,10 +110,10 @@ function ContactUs() {
     e.preventDefault();
     
     try {
-      console.log(formData);
   
       // Construct the URL for the contact form submission API
-      const url = `${ENDPOINT.BASE_URL}/api/contact`;
+      const url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/contact`;
+      // const url = `${ENDPOINT.BASE_URL}/api/contact`;
       // Data to be sent in the request body
       const data = formData;
       // Make a POST request to the server

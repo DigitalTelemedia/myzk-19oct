@@ -30,7 +30,8 @@ const DashboardProductDetails = ({
     const requestOptions = {
       method: "DELETE",
     };
-    fetch(`${ENDPOINT.BASE_URL}/api/products/${id}`, requestOptions)
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products/${id}`, requestOptions)
+    // fetch(`${ENDPOINT.BASE_URL}/api/products/${id}`, requestOptions)
       .then((response) => {
         if (response.status !== 204) {
           if (response.status === 400) {
@@ -68,7 +69,8 @@ const DashboardProductDetails = ({
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(product),
     };
-    fetch(`${ENDPOINT.BASE_URL}/api/products/${id}`, requestOptions)
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products/${id}`, requestOptions)
+    // fetch(`${ENDPOINT.BASE_URL}/api/products/${id}`, requestOptions)
       .then((response) => {
         if (response.status === 200) {
           return response.json();
@@ -88,7 +90,8 @@ const DashboardProductDetails = ({
     formData.append("uploadedFile", file);
 
     try {
-      const response = await fetch(ENDPOINT.BASE_URL + "/api/main-image", {
+      const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/api/main-image", {
+      // const response = await fetch(ENDPOINT.BASE_URL + "/api/main-image", {
         method: "POST",
         body: formData,
       });
@@ -106,7 +109,8 @@ const DashboardProductDetails = ({
 
   // fetching main product data including other product images
   const fetchProductData = async () => {
-    fetch(`${ENDPOINT.BASE_URL}/api/products/${id}`)
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products/${id}`)
+    // fetch(`${ENDPOINT.BASE_URL}/api/products/${id}`)
       .then((res) => {
         return res.json();
       })
@@ -114,7 +118,8 @@ const DashboardProductDetails = ({
         setProduct(data);
       });
 
-    const imagesData = await fetch(`${ENDPOINT.BASE_URL}/api/images/${id}`, {
+    const imagesData = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/images/${id}`, {
+    // const imagesData = await fetch(`${ENDPOINT.BASE_URL}/api/images/${id}`, {
       cache: "no-store",
     });
     const images = await imagesData.json();
@@ -123,7 +128,8 @@ const DashboardProductDetails = ({
 
   // fetching all product categories. It will be used for displaying categories in select category input
   const fetchCategories = async () => {
-    fetch(`${ENDPOINT.BASE_URL}/api/categories`)
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/categories`)
+    // fetch(`${ENDPOINT.BASE_URL}/api/categories`)
       .then((res) => {
         return res.json();
       })

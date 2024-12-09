@@ -13,7 +13,6 @@ export default async function Layout({
   try {
     const session = await getServerSession();
 
-    console.log("getServerSession-------", session);
     if (!session) {
       redirect("/");
     }
@@ -23,14 +22,14 @@ export default async function Layout({
       throw new Error("Email not found in session");
     }
 
-    const res = await fetch(`${ENDPOINT.BASE_URL}/api/users/email/${email}`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/email/${email}`);
+    // const res = await fetch(`${ENDPOINT.BASE_URL}/api/users/email/${email}`);
     const data = await res.json();
     // redirecting user to the home page if not admin
     if (data.role === "user") {
       redirect("/");
     }
   } catch (error) {
-    console.log("getServerSession error-------", error);
     redirect("/");
 
   }

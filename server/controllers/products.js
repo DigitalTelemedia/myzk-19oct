@@ -260,19 +260,7 @@ async function createProduct(request, response) {
       categoryId,
       inStock,
     } = request.body;
-    console.log("product details:::::",   slug,
-      title,
-      mainImage,
-      alternateImage1,
-      alternateImage2,
-      alternateImage3,
-      alternateImage4,
-      price,
-      salePrice,
-      description,
-      manufacturer,
-      categoryId,
-      inStock,);
+
     
     const product = await prisma.product.create({
       data: {

@@ -22,12 +22,11 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const session = await getServerSession();
-  console.log("from main layout", session);
   return (
     <html lang="en" data-theme="light">
-      <Head>
+  
+      {/* <head>
         <link rel="icon" href="/favicon.ico" />
-        {/* <!-- Google tag (gtag.js) --> */}
         <script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-84EDRJ28XX"
@@ -41,7 +40,7 @@ export default async function RootLayout({
   gtag('config', 'G-84EDRJ28XX');
   `}
         </script>
-      </Head>
+      </head> */}
       <body className={inter.className}>
         <SessionProvider session={session}>
           {/* <Header2 /> */}

@@ -8,7 +8,6 @@ const NewsLetterfooter = () => {
 
   const handleSubscribe = (e:any) => {
     e.preventDefault()
-    console.log(`Subscribed with email: ${email}`)
     setEmail('') // Clear input after subscribing
   }
 

@@ -11,7 +11,8 @@ const DashboardUsers = () => {
 
   useEffect(() => {
     // sending API request for all users
-    fetch(ENDPOINT.BASE_URL + "/api/users")
+    fetch(process.env.NEXT_PUBLIC_BASE_URL + "/api/users")
+    // fetch(ENDPOINT.BASE_URL + "/api/users")
       .then((res) => {
         return res.json();
       })

@@ -18,7 +18,8 @@ const AdminWarranties = () => {
 
   useEffect(() => {
     const fetchOrders = async () => {
-      const response = await fetch(ENDPOINT.BASE_URL + "/api/warranties");
+      const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/api/warranties");
+      // const response = await fetch(ENDPOINT.BASE_URL + "/api/warranties");
       const data = await response.json();
       setWarranties(data);
     };

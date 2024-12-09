@@ -24,6 +24,8 @@ import sha256 from "crypto-js/sha256";
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import { checkPostalCodeService } from "@/utils/deliveryDtdc";
+import { makePayment } from "@/utils/payment";
+import { StartOutlined } from "@mui/icons-material";
 
 interface PayProps {
   name: string;
@@ -66,66 +68,68 @@ const CheckoutPage = () => {
   });
   const { products, total, clearCart } = useProductStore();
   const router = useRouter();
+  // const makePayment = async (
+  //   mobile: string,
+  //   total: number,
+  //   orderId: string
+  // ) => {
+  //   // const transactionId = "Tr-" + uuidv4().toString(36).slice(-6);
+  //   const transactionId = orderId;
+  //   //transaction id will be order id for us
+  //   const payload: PaymentPayload = {
+  //     merchantId: `${process.env.NEXT_PUBLIC_MERCHANT_ID }`,
+  //     merchantTransactionId: transactionId,
+  //     // merchantUserId: 'MUID-' + uuidv4().toString(36).slice(-6),
+  //     merchantUserId: "MUID-" + uuidv4().slice(-6),
+  //     amount: total,
+  //     redirectUrl: `${process.env.NEXT_PUBLIC_PAYMENT_REDIRECT_URL}/api/status/${transactionId}`,
+  //     redirectMode: "POST",
+  //     callbackUrl: `${process.env.NEXT_PUBLIC_PAYMENT_REDIRECT_URL}/api/status/${transactionId}`,
+  //     mobileNumber: mobile,
+  //     paymentInstrument: { type: "PAY_PAGE" },
+  //   };
 
-  const makePayment = async (
-    mobile: string,
-    total: number,
-    orderId: string
-  ) => {
-    // const transactionId = "Tr-" + uuidv4().toString(36).slice(-6);
-    const transactionId = orderId;
-    //transaction id will be order id for us
-    const payload: PaymentPayload = {
-      merchantId: process.env.NEXT_PUBLIC_MERCHANT_ID || "",
-      merchantTransactionId: transactionId,
-      // merchantUserId: 'MUID-' + uuidv4().toString(36).slice(-6),
-      merchantUserId: "MUID-" + uuidv4().slice(-6),
-      amount: total,
-      redirectUrl: `${process.env.NEXT_PUBLIC_PAYMENT_REDIRECT_URL}/api/status/${transactionId}`,
-      redirectMode: "POST",
-      callbackUrl: `${process.env.NEXT_PUBLIC_PAYMENT_REDIRECT_URL}/api/status/${transactionId}`,
-      mobileNumber: mobile,
-      paymentInstrument: { type: "PAY_PAGE" },
-    };
+  //   const dataPayload = JSON.stringify(payload);
+  //   const dataBase64 = Buffer.from(dataPayload).toString("base64");
 
-    const dataPayload = JSON.stringify(payload);
-    const dataBase64 = Buffer.from(dataPayload).toString("base64");
+  //   const fullURL =
+  //     dataBase64 + "/pg/v1/pay" + process.env.NEXT_PUBLIC_SALT_KEY;
+  //   const dataSha256 = sha256(fullURL);
+  //   const checksum = dataSha256 + "###" + process.env.NEXT_PUBLIC_SALT_INDEX;
 
-    const fullURL =
-      dataBase64 + "/pg/v1/pay" + process.env.NEXT_PUBLIC_SALT_KEY;
-    const dataSha256 = sha256(fullURL);
-    const checksum = dataSha256 + "###" + process.env.NEXT_PUBLIC_SALT_INDEX;
+  //   const UAT_PAY_API_URL = process.env.NEXT_PUBLIC_PAYMENT_BASE_URL +  "/pg/v1/pay";
 
-    const UAT_PAY_API_URL =
-      "https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/pay";
+  //   // const UAT_PAY_API_URL =
+  //   //   "https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/pay";
 
-    try {
-      const response = await axios.post(
-        UAT_PAY_API_URL,
-        { request: dataBase64 },
-        {
-          headers: {
-            accept: "application/json",
-            "Content-Type": "application/json",
-            "X-VERIFY": checksum,
-          },
-        }
-      );
+  //   try {
+  //     const response = await axios.post(
+  //       UAT_PAY_API_URL,
+  //       { request: dataBase64 },
+  //       {
+  //         headers: {
+  //           accept: "application/json",
+  //           "Content-Type": "application/json",
+  //           "X-VERIFY": checksum,
+  //         },
+  //       }
+  //     );
 
-      const redirectUrl =
-        response.data.data.instrumentResponse.redirectInfo.url;
-      router.push(redirectUrl);
-    } catch (error) {
-      console.error("Payment error:", error);
-    }
-  };
+  //     const redirectUrl =
+  //       response.data.data.instrumentResponse.redirectInfo.url;
+  //     router.push(redirectUrl);
+  //   } catch (error) {
+  //     console.error("Payment error:", error);
+  //   }
+  // };
   const addOrderProduct = async (
     orderId: string,
     productId: string,
     productQuantity: number
   ) => {
     try {
-      const response = await fetch(`${ENDPOINT.BASE_URL}/api/order-product`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/order-product`, {
+      // const response = await fetch(`${ENDPOINT.BASE_URL}/api/order-product`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -155,6 +159,10 @@ const CheckoutPage = () => {
       checkoutForm.country.length > 0 &&
       checkoutForm.postalCode.length > 0
     ) {
+      if (checkoutForm.postalCode.length !== 6) {
+        toast.error("Please Enter 6 digit valid pin code.");
+        return;
+      }
       if (!isValidNameOrLastname(checkoutForm.name)) {
         toast.error("You entered invalid format for name");
         return;
@@ -194,7 +202,8 @@ const CheckoutPage = () => {
 
       // sending API request for creating a order
 
-      const response = fetch(ENDPOINT.BASE_URL + "/api/orders", {
+      const response = fetch(process.env.NEXT_PUBLIC_BASE_URL + "/api/orders", {
+      // const response = fetch(ENDPOINT.BASE_URL + "/api/orders", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -228,7 +237,6 @@ const CheckoutPage = () => {
         })
         .then((data) => {
           const orderId: string = data.id;
-          console.log("Trying to make payment for order id", orderId);
 
           setCheckoutForm({
             name: "",
@@ -280,10 +288,12 @@ const CheckoutPage = () => {
   }, []);
   const [isRegistered, setIsRegistered] = useState<boolean>(true);
 
-  const [serviceStatus, setServiceStatus] = useState<null | {
-    status: string;
-    message: string;
-  }>(null);
+  // const [serviceStatus, setServiceStatus] = useState<null | {
+  //   status: string;
+  //   // message: string;
+  // }>(null);
+  const [serviceStatus, setServiceStatus] = useState<string | null>(null);
+
 
   const handlePostalCodeChange = async (
     e: React.ChangeEvent<HTMLInputElement>
@@ -295,18 +305,14 @@ const CheckoutPage = () => {
       postalCode,
     });
 
-    if (postalCode.length >= 5) {
+    if (postalCode.length >= 6) {
       // Replace with the desired pin codes
       const orgPincode = "160036";
-      const desPincode = "110001";
+      const desPincode = checkoutForm.postalCode;
 
-      // Run the function
-      // checkPostalCodeService(orgPincode, desPincode);
-
-      // Test postal code service
-      // let orgPincode = "160036"
+      
       const result = await checkPostalCodeService(orgPincode, postalCode); // Replace "160036" with orgPincode
-      // setServiceStatus(result);
+      setServiceStatus(result.ZIPCODE_RESP?.[0]?.MESSAGE);
     } else {
       setServiceStatus(null);
     }
@@ -639,7 +645,7 @@ const CheckoutPage = () => {
                       htmlFor="company"
                       className="block text-sm font-medium text-gray-700"
                     >
-                      Company
+                      State/Company
                     </label>
                     <div className="mt-1">
                       <input
@@ -799,36 +805,22 @@ const CheckoutPage = () => {
                         value={checkoutForm.postalCode}
                         onChange={handlePostalCodeChange}
                       />
+                      
                     </div>
-                    {serviceStatus && (
-                      <div className="mt-2 flex items-center">
-                        {serviceStatus.status === "success" ? (
-                          <>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              className="w-6 h-6 text-green-500"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                              strokeWidth="2"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M9 12l2 2 4-4m5 4a9 9 0 11-18 0 9 9 0 0118 0z"
-                              />
-                            </svg>
-                            <span className="ml-2 text-green-600">
-                              {serviceStatus.message}
-                            </span>
-                          </>
-                        ) : (
-                          <span className="ml-2 text-red-600">
-                            {serviceStatus.message}
-                          </span>
-                        )}
-                      </div>
-                    )}
+                    {serviceStatus=="SUCCESS" ?<>
+                   
+                    <span className="ml-2 text-green-600 text-sm">
+                    *Service Available
+                  </span>
+                      
+                       </>
+                   :
+                    <span className="ml-2 text-red-600 text-sm">
+                    {serviceStatus}
+                  </span>
+                   }
+                    
+              
                   </div>
 
                   <div className="sm:col-span-3">

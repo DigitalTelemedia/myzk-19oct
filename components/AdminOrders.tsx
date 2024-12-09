@@ -18,7 +18,8 @@ const AdminOrders = () => {
 
   useEffect(() => {
     const fetchOrders = async () => {
-      const response = await fetch(ENDPOINT.BASE_URL+ "/api/orders");
+      const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL+ "/api/orders");
+      // const response = await fetch(ENDPOINT.BASE_URL+ "/api/orders");
       const data = await response.json();
       setOrders(data);
     };

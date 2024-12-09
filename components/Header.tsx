@@ -80,7 +80,8 @@ const Header = () => {
 
   const getWishlistByUserId = async (id: string) => {
     try {
-      const response = await fetch(`${ENDPOINT.BASE_URL}/api/wishlist/${id}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/wishlist/${id}`, {
+      // const response = await fetch(`${ENDPOINT.BASE_URL}/api/wishlist/${id}`, {
         cache: 'no-store'
       })
       const wishlist = await response.json()
@@ -102,7 +103,8 @@ const Header = () => {
     if (session?.user?.email) {
       try {
         const response = await fetch(
-          `${ENDPOINT.BASE_URL}/api/users/email/${session.user.email}`,
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/users/email/${session.user.email}`,
+          // `${ENDPOINT.BASE_URL}/api/users/email/${session.user.email}`,
           { cache: 'no-store' }
         )
         const data = await response.json()
@@ -122,7 +124,8 @@ const Header = () => {
   const handleProductSelection = () => setShowCategoryList(false)
 
   useEffect(() => {
-    fetch(ENDPOINT.BASE_URL + '/api/categories/', { cache: 'no-store' })
+    fetch(process.env.NEXT_PUBLIC_BASE_URL + '/api/categories/', { cache: 'no-store' })
+    // fetch(ENDPOINT.BASE_URL + '/api/categories/', { cache: 'no-store' })
       .then(res => res.json())
       .then(data => setCategoryMenuList2(data))
   }, [])

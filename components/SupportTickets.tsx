@@ -26,7 +26,8 @@ function SupportTicket () {
     setErrorMessage('') // Reset error message on new submission
     setSuccessMessage('') // Reset success message on new submission
 
-    const res = await fetch(ENDPOINT.BASE_URL + '/api/support-ticket', {
+    const res = await fetch(process.env.NEXT_PUBLIC_BASE_URL + '/api/support-ticket', {
+    // const res = await fetch(ENDPOINT.BASE_URL + '/api/support-ticket', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

@@ -4,11 +4,9 @@ const prisma = new PrismaClient();
 
 // Create a contact form submission
 exports.createContactForm = async (req, res) => {
-  console.log("Contact form submission initiated...");
 
   try {
     const { name, email, message, subject } = req.body;
-    console.log("Request data:", name, email, message, subject);
 
     // Validate required fields
     if (!name || !email || !message || !subject) {

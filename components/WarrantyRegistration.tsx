@@ -89,7 +89,8 @@ const WarrantyRegistration = () => {
     e.preventDefault()
     try {
       const response = await axios.post(
-        `${ENDPOINT.BASE_URL}/api/warranties`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/warranties`,
+        // `${ENDPOINT.BASE_URL}/api/warranties`,
         formData
       )
       toast.success('Warranty issued successfully!')
@@ -97,7 +98,6 @@ const WarrantyRegistration = () => {
       setFormData({ email: '', orderNumber: '' }) // Reset form
     } catch (error: any) {
       toast.error(error?.response?.data?.error)
-      console.log(error)
 
       setMessage(error?.response?.data?.error || 'An error occurred.')
     }

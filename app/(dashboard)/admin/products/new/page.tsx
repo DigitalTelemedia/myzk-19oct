@@ -55,7 +55,8 @@ const AddNewProduct = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(product),
     };
-    fetch(`${ENDPOINT.BASE_URL}/api/products`, requestOptions)
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products`, requestOptions)
+    // fetch(`${ENDPOINT.BASE_URL}/api/products`, requestOptions)
       .then((response) => {
         if (response.status === 201) {
           return response.json();
@@ -91,7 +92,8 @@ const AddNewProduct = () => {
     formData.append("uploadedFile", file);
 
     try {
-      const response = await fetch(ENDPOINT.BASE_URL + "/api/main-image", {
+      const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/api/main-image", {
+      // const response = await fetch(ENDPOINT.BASE_URL + "/api/main-image", {
         method: "POST",
         body: formData,
       });
@@ -107,7 +109,8 @@ const AddNewProduct = () => {
   };
 
   const fetchCategories = async () => {
-    fetch(`${ENDPOINT.BASE_URL}/api/categories`)
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/categories`)
+    // fetch(`${ENDPOINT.BASE_URL}/api/categories`)
       .then((res) => {
         return res.json();
       })

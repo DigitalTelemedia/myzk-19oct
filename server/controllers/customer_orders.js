@@ -38,7 +38,6 @@ async function createCustomerOrder(request, response) {
       },
     });
     // customer_order
-    console.log("recived###########", corder);
     // const from = "tesmist"
     // await sendEmail(
     //   from,
@@ -113,11 +112,8 @@ async function updateCustomerOrder(request, response) {
 }
 async function updateCustomerOrderStatus(request, response) {
   try {
-    console.log("updateCustomerOrderStatus");
     // const { id } = request.params;
     const { status,id } = request.body;
-    console.log("updateCustomerOrderStatus",id);
-    console.log("updateCustomerOrderStatus",status);
 
     const existingOrder = await prisma.customer_order.findUnique({
       where: {
@@ -144,11 +140,9 @@ async function updateCustomerOrderStatus(request, response) {
   }
 }
 async function cancelCustomerOrder(request, response) {
-  console.log("cancel");
 
   try {
     const { id } = request.params;
-    console.log(id, "id....");
 
     // const {
     //   name,
@@ -241,9 +235,7 @@ async function deleteCustomerOrder(request, response) {
 }
 
 async function getCustomerOrder(request, response) {
-  console.log("******getCustomerOrder request", request.params);
   const { id } = request.params;
-  console.log("******getCustomerOrder id", id);
   const order = await prisma.customer_order.findUnique({
     where: {
       id: id,
@@ -266,7 +258,6 @@ async function getAllOrders(request, response) {
 }
 
 async function getCustomerOrderByEmail(request, response) {
-  console.log("request.params is ", request.params);
   const { email } = request.params;
   const orders = await prisma.customer_order.findMany({
     where: {

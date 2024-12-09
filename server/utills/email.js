@@ -34,6 +34,7 @@
 // module.exports = { sendEmail };
 // // Example usage
 // // sendEmail(Email, 'Test Email', 'Hello from Node.js!');
+
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 

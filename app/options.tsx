@@ -34,7 +34,6 @@ export const authOptions = {
               //   // Include other fields you want to retrieve
               // },
             });
-  console.log("user....",user);
   
             if (user) {
               const isPasswordCorrect = await bcrypt.compare(

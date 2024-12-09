@@ -16,7 +16,8 @@ import ENDPOINT from '@/config/appConfig';
 
 const ProductsSection = async () => {
   // sending API request for getting all products
-  const data = await fetch( ENDPOINT.BASE_URL + "/api/products");
+  const data = await fetch( process.env.NEXT_PUBLIC_BASE_URL + "/api/products");
+  // const data = await fetch( ENDPOINT.BASE_URL + "/api/products");
   const products = await data.json();
   return (
  

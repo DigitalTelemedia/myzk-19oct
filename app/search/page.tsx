@@ -10,7 +10,8 @@ interface Props {
 // sending api request for search results for a given search text
 const SearchPage = async ({ searchParams: { search } }: Props) => {
   const data = await fetch(
-    `${ENDPOINT.BASE_URL}/api/search?query=${search || ""}`
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/search?query=${search || ""}`
+    // `${ENDPOINT.BASE_URL}/api/search?query=${search || ""}`
   );
 
   const products = await data.json();

@@ -4,7 +4,8 @@ import { revalidateTag } from "next/cache";
 // import ENDPOINT from "../../config/appConfig";
 import ENDPOINT from '@/config/appConfig';
 export async function deleteWishItem(id: string){
-  await fetch(`${ENDPOINT.BASE_URL}/api/wishlist/${id}`, {
+  await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/wishlist/${id}`, {
+  // await fetch(`${ENDPOINT.BASE_URL}/api/wishlist/${id}`, {
     method: "DELETE",
   });
 }

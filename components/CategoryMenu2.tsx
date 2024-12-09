@@ -21,7 +21,8 @@ const CategoryMenu2 = () => {
   const [categoryMenuList2, setCategoryMenuList2] = useState([]);
 
   useEffect(() => {
-    fetch(ENDPOINT.BASE_URL + "/api/categories/", { cache: "no-store" })
+    fetch(process.env.NEXT_PUBLIC_BASE_URL + "/api/categories/", { cache: "no-store" })
+    // fetch(ENDPOINT.BASE_URL + "/api/categories/", { cache: "no-store" })
       .then((res) => {
         return res.json();
       })

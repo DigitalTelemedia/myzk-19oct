@@ -24,7 +24,8 @@ const DashboardNewCategoryPage = () => {
     formData.append("uploadedFile", file);
 
     try {
-      const response = await fetch(ENDPOINT.BASE_URL + "/api/main-image", {
+      const response = await fetch(process.env.NEXT_PUBLIC_BASE_URL + "/api/main-image", {
+      // const response = await fetch(ENDPOINT.BASE_URL + "/api/main-image", {
         method: "POST",
         body: formData,
       });
@@ -51,7 +52,8 @@ const DashboardNewCategoryPage = () => {
         body: JSON.stringify(categoryInput),
       };
       // sending API request for creating new cateogry
-      fetch(`${ENDPOINT.BASE_URL}/api/categories`, requestOptions)
+      fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/categories`, requestOptions)
+      // fetch(`${ENDPOINT.BASE_URL}/api/categories`, requestOptions)
         .then((response) => {
           if (response.status === 201) {
             return response.json();

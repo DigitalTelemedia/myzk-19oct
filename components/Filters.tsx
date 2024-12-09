@@ -60,7 +60,8 @@ interface InputCategory {
   const excludedSlugs = ['inspired-products', 'topselling-products', 'new-products'];
 
   useEffect(() => {
-    fetch(ENDPOINT.BASE_URL + "/api/categories/", { cache: "no-store" })
+    fetch(process.env.NEXT_PUBLIC_BASE_URL + "/api/categories/", { cache: "no-store" })
+    // fetch(ENDPOINT.BASE_URL + "/api/categories/", { cache: "no-store" })
       .then((res) => res.json())
       .then((data) => {
         setCategoryMenuList(data);

@@ -23,6 +23,7 @@
     "axios": "^1.7.7",
     "bcryptjs": "^2.4.3",
     "crypto-js": "^4.2.0",
+    "dotenv": "^16.4.5",
     "express-fileupload": "^1.5.0",
     "flowbite-react": "^0.7.2",
     "nanoid": "^5.0.6",

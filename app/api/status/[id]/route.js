@@ -4,7 +4,6 @@ import axios from "axios";
 
 export async function POST(req, res) {
   const data = await req.formData();
-  console.log(data);
   const status = data.get("code");
   const merchantId = data.get("merchantId");
   const transactionId = data.get("transactionId");
@@ -12,11 +11,9 @@ export async function POST(req, res) {
   const st =
     `/pg/v1/status/${merchantId}/${transactionId}` +
     process.env.NEXT_PUBLIC_SALT_KEY;
-  // console.log(st)
   const dataSha256 = sha256(st);
 
   const checksum = dataSha256 + "###" + process.env.NEXT_PUBLIC_SALT_INDEX;
-  console.log(checksum);
 
 
 
@@ -34,7 +31,6 @@ export async function POST(req, res) {
 
   // CHECK PAYMENT STATUS
   const response = await axios.request(options);
-  console.log("r===", response.data.code);
 
 
   if (response.data.code == "PAYMENT_SUCCESS")

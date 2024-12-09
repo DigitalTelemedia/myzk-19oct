@@ -129,7 +129,7 @@ const Login: React.FC<LoginProps> = ({ onLogin,onRegister,setIsRegistered }) => 
               href="#"
               className="font-semibold text-black hover:text-black"
             >
-              Forgot password?
+              {/* Forgot password? */}
             </a>
           </div>
         </div>

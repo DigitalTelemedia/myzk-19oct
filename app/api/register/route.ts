@@ -5,7 +5,6 @@ import { NextResponse } from "next/server";
 
 export const POST = async (request: any) => {
   const { email, password } = await request.json();
-  console.log("register", email, password);
   const existingUser = await prisma.user.findFirst({ where: { email } });
 
   if (existingUser) {

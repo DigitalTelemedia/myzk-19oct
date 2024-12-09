@@ -30,7 +30,8 @@ const DashboardSupportTicketPage = ({
     const requestOptions = {
       method: "DELETE",
     };
-    fetch(`${ENDPOINT.BASE_URL}/api/support-ticket/${id}, requestOptions`)
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/support-ticket/${id}, requestOptions`)
+    // fetch(`${ENDPOINT.BASE_URL}/api/support-ticket/${id}, requestOptions`)
       .then((response) => {
         if (response.status === 204) {
           toast.success("Ticket deleted successfully");
@@ -62,7 +63,8 @@ const DashboardSupportTicketPage = ({
         }),
       };
 
-      fetch(`${ENDPOINT.BASE_URL}/api/support-ticket, requestOptions`)
+      fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/support-ticket, requestOptions`)
+      // fetch(`${ENDPOINT.BASE_URL}/api/support-ticket, requestOptions`)
         .then((response) => {
           if (response.status === 201) {
             return response.json();
@@ -82,7 +84,8 @@ const DashboardSupportTicketPage = ({
 
   useEffect(() => {
     // Fetching single ticket details
-    fetch(`${ENDPOINT.BASE_URL}/api/support-ticket/${id}`)
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/support-ticket/${id}`)
+    // fetch(`${ENDPOINT.BASE_URL}/api/support-ticket/${id}`)
       .then((res) => {
         return res.json();
       })

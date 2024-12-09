@@ -42,10 +42,8 @@ const getWarranty = async (req, res) => {
 
 // Create a new warranty
 const createWarranty = async (req, res) => {
-  console.log("createWarranty called");
 
   const { email, orderNumber } = req.body;
-  console.log("Received email & orderNumber:", email, orderNumber);
 
   if (!email || !orderNumber) {
     return res.status(400).json({ error: 'Email and Order Number are required.' });
@@ -69,7 +67,6 @@ const createWarranty = async (req, res) => {
     if (!customerOrder) {
       return res.status(400).json({ error: 'Order number does not exist or does not belong to the provided email.' });
     }
-    console.log("Found customer order:", customerOrder);
 
     // Check if warranties have already been issued for this order
     if (customerOrder.Warranties && customerOrder.Warranties.length > 0) {
@@ -84,7 +81,6 @@ const createWarranty = async (req, res) => {
 
     for (const orderProduct of customerOrder.products) {
       const product = orderProduct.product;
-      console.log("Processing product:", product.id, product.title);
       
       if (product.warrantyDuration && product.warrantyDuration > 0) {
           //   currentDate= orderProduct.Date

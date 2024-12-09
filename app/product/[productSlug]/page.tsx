@@ -20,10 +20,12 @@ interface ImageItem {
 }
 
 const fetchProductData = async (productSlug: string) => {
-  const data = await fetch(`${ENDPOINT.BASE_URL}/api/slugs/${productSlug}`);
+  const data = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/slugs/${productSlug}`);
+  // const data = await fetch(`${ENDPOINT.BASE_URL}/api/slugs/${productSlug}`);
   const product = await data.json();
 
-  const imagesData = await fetch(`${ENDPOINT.BASE_URL}/api/images/${product.id}`);
+  const imagesData = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/images/${product.id}`);
+  // const imagesData = await fetch(`${ENDPOINT.BASE_URL}/api/images/${product.id}`);
   const images = await imagesData.json();
 
   return { product, images };

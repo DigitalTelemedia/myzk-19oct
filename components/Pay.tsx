@@ -47,9 +47,9 @@ const Pay: React.FC<PayProps> = ({ name, amount, mobile }) => {
       // merchantUserId: 'MUID-' + uuidv4().toString(36).slice(-6),
       merchantUserId: 'MUID-' + uuidv4().slice(-6),
       amount: 10000,
-      redirectUrl: `http://localhost:3000/api/status/${transactionId}`,
+      redirectUrl: `https://myzk.in/api/status/${transactionId}`,
       redirectMode: "POST",
-      callbackUrl: `http://localhost:3000/api/status/${transactionId}`,
+      callbackUrl: `https://myzk.in/api/status/${transactionId}`,
       mobileNumber: '9999999999',
       paymentInstrument: { type: "PAY_PAGE" },
     };

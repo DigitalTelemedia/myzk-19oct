@@ -13,7 +13,6 @@ async function getAllUsers(request, response) {
 
 async function createUser(request, response) {
   try {
-    console.log("Creating user");
     const { email, password, role } = request.body;
     const hashedPassword = await bcrypt.hash(password, 5);
 

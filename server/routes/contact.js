@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 
-console.log("contact.....router");
 
 // Import the contact form controller functions
 const {

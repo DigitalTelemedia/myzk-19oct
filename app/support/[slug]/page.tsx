@@ -16,7 +16,6 @@ interface PolicyPageProps {
 
 export default function PolicyPage({ params }: PolicyPageProps) {
   const { slug } = params;
-  console.log("slug.............",slug);
   
 
   const renderPolicyComponent = (slug: string) => {

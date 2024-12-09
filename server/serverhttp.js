@@ -15,24 +15,31 @@ const warrantiesRouter = require('./routes/warranties');
 const supportTicketRouter = require('./routes/support_ticket');
 const contactRouter = require('./routes/contact');
 const deliverRouter = require('./routes/delivery');
+const paymentRoutes = require("./routes/payment");
+
 var cors = require("cors");
+require('dotenv').config();
+
+console.log("test",process.env.NEXT_PUBLIC_PAYMENT_BASE_URL);
+
 
 const app = express();
 
 app.use(express.json());
 app.use(
-  cors({
-    origin: "*",
-    methods: ["GET", "POST", "PUT", "DELETE","PATCH"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+  cors(
+  //   {
+  //   origin: "*",
+  //   methods: ["GET", "POST", "PUT", "DELETE","PATCH", "OPTIONS"],
+  //   allowedHeaders: ["Content-Type", "Authorization",'api-key'],
     
-  })
+  // }
+)
 );
 // app.use(cors());
 
 
 
-console.log("1");
 
 app.use(fileUpload());
 
@@ -50,6 +57,8 @@ app.use('/api/warranties', warrantiesRouter);
 app.use('/api/support-ticket', supportTicketRouter);
 app.use('/api/contact', contactRouter);
 app.use('/api/delivery', deliverRouter);
+app.use("/api/payment", paymentRoutes);
+
  
 
 const PORT = process.env.PORT || 3001;

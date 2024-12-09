@@ -29,7 +29,8 @@ const DashboardSingleUserPage = ({
     const requestOptions = {
       method: "DELETE",
     };
-    fetch(`${ENDPOINT.BASE_URL}/api/users/${id}`, requestOptions)
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${id}`, requestOptions)
+    // fetch(`${ENDPOINT.BASE_URL}/api/users/${id}`, requestOptions)
       .then((response) => {
         if (response.status === 204) {
           toast.success("User deleted successfully");
@@ -64,7 +65,8 @@ const DashboardSingleUserPage = ({
             role: userInput.role,
           }),
         };
-        fetch(`${ENDPOINT.BASE_URL}/api/users/${id}`, requestOptions)
+        fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${id}`, requestOptions)
+        // fetch(`${ENDPOINT.BASE_URL}/api/users/${id}`, requestOptions)
           .then((response) => {
             if (response.status === 200) {
               return response.json();
@@ -88,7 +90,8 @@ const DashboardSingleUserPage = ({
 
   useEffect(() => {
     // sending API request for a single user
-    fetch(`${ENDPOINT.BASE_URL}/api/users/${id}`)
+    fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/${id}`)
+    // fetch(`${ENDPOINT.BASE_URL}/api/users/${id}`)
       .then((res) => {
         return res.json();
       })

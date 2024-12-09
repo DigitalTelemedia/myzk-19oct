@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "dotenv -e .env.development node serverhttp.js",
+    "start": "dotenv -e .env.production node serverhttps.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -20,5 +22,8 @@
     "next": "^14.2.0",
     "nodemailer": "^6.9.15",
     "prisma": "^5.12.1"
+  },
+  "devDependencies": {
+    "dotenv-cli": "^7.4.4"
   }
 }

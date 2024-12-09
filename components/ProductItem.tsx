@@ -17,6 +17,7 @@ import {
 import { Favorite, ShoppingCart, Visibility } from '@mui/icons-material'
 import AddToWishlistBtn from './AddToWishlistBtn'
 import AddToWishlistIcon from './AddToWishlistIcon'
+import AddToCartIcon from './AddToCartIcon'
 
 const ProductItem = ({
   product,
@@ -161,7 +162,9 @@ const ProductItem = ({
                       }
                     }}
                   >
-                    <ShoppingCart />
+                    <AddToCartIcon    quantityCount={1}
+            product={product}/>
+                    {/* <ShoppingCart /> */}
                   </IconButton>
                 </Box>
               </Box>

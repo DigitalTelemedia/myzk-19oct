@@ -14,28 +14,32 @@ const WishlistPage = () => {
   const {wishlist, setWishlist}= useWishlistStore();
 
   const getWishlistByUserId = async (id: string) => {
-    const response = await fetch(`${ENDPOINT.BASE_URL}/api/wishlist/${id}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/wishlist/${id}`, {
+    // const response = await fetch(`${ENDPOINT.BASE_URL}/api/wishlist/${id}`, {
       cache: "no-store",
     });
     const wishlist = await response.json();
 
     const productArray: {
+    
       id: string;
       title: string;
       price: number;
+      salePrice: number;
       image: string;
       slug:string
       stockAvailabillity: number;
     }[] = [];
     
-    wishlist.map((item:any) => productArray.push({id: item?.product?.id, title: item?.product?.title, price: item?.product?.price, image: item?.product?.mainImage, slug: item?.product?.slug, stockAvailabillity: item?.product?.inStock}));
+    wishlist.map((item:any) => productArray.push({id: item?.product?.id, title: item?.product?.title, price: item?.product?.price, image: item?.product?.mainImage, slug: item?.product?.slug, stockAvailabillity: item?.product?.inStock, salePrice:item?.product?.salePrice}));
     
     setWishlist(productArray);
   };
 
   const getUserByEmail = async () => {
     if (session?.user?.email) {
-      fetch(`${ENDPOINT.BASE_URL}/api/users/email/${session?.user?.email}`, {
+      fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/users/email/${session?.user?.email}`, {
+      // fetch(`${ENDPOINT.BASE_URL}/api/users/email/${session?.user?.email}`, {
         cache: "no-store",
       })
         .then((response) => response.json())
@@ -72,6 +76,7 @@ const WishlistPage = () => {
                 {wishlist &&
                   wishlist?.map((item) => (
                     <WishItem
+                    salePrice={item.salePrice}
                       id={item?.id}
                       title={item?.title}
                       price={item?.price}

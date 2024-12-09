@@ -10,7 +10,6 @@ async function getAllSupportTickets(request, response) {
   }
 }
 async function deleteSupportTicketsByTicketId(request, response) {
-  console.log("recived ******8",request.params)
   const { ticketId } = request.params;
 
   try {
@@ -43,7 +42,6 @@ async function getAllSupportTicketsByUserId(request, response) {
 
 async function createSupportTicket(request, response) {
   try {
-    console.log("request.body=********",request.body)
     const { name, email, orderNumber, description } = request.body;
 
     // Optionally, you can add logic to check if the orderNumber is valid in the customer_order table.
