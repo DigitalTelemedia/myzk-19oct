@@ -16,7 +16,7 @@ exports.createContactForm = async (req, res) => {
     // Send an email notification
     const to = "missnaziya24@gmail.com";
     await sendEmail({
-      from: to,         // Customer email
+      // from: to,         // Customer email
       to: to,              // Admin email
       subject: subject,    // Email subject
       text: message ,   // Email body
