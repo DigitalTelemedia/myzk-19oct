@@ -34,6 +34,7 @@ interface RegisterProps {
     const email = e.target[2].value;
     const password = e.target[3].value;
     const confirmPassword = e.target[4].value;
+    const termsAccepted = e.target["remember-me"].checked;
 
     if (!isValidEmail(email)) {
       // setError("Email is invalid");
@@ -52,6 +53,12 @@ interface RegisterProps {
       toast.error("Passwords are not equal");
       return;
     }
+
+    
+  if (!termsAccepted) {
+    toast.error("You must accept the terms and privacy policy to proceed.");
+    return;
+  }
 
     try {
       // sending API request for registering user
